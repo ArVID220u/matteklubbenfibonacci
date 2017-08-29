@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
  
     <link href="{{ url_for('static',filename='styles/mainpage.css') }}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Inconsolata:700|Merriweather|Open+Sans:400,600" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather|Open+Sans:400,600,700" rel="stylesheet">
 
 
     <link rel="apple-touch-icon" sizes="57x57" href="{{ url_for('static', filename='icon/apple-touch-icon-57x57.png') }}">
@@ -28,20 +28,6 @@
 
     {% block viewport %}<meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0">{% endblock %}
 
-    {% macro needsmath() %}
-        <script type="text/x-mathjax-config">
-            MathJax.Hub.Config({
-                tex2jax: {
-                    inlineMath: [['$','$'], ['\\(','\\)']],
-                    processEscapes: true
-                }
-            });
-        </script>
-        <script type="text/javascript" async
-          src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
-        </script>
-    {% endmacro %}
-
     {% block head %}{% endblock %}
 
  
@@ -51,31 +37,22 @@
     <nav>
         <table id="navigationtable">
             <tr>
-                <td class="brandrow"><a href="{{ url_for('home') }}"><span class="turing">Turings</span> <span class="gang">gäng</span><span class ="semicolon">;</span></a></td>
+                <td class="brandrow"><a href="{{ url_for('home') }}">Matteklubben Fibonacci</a></td>
                 {% block centernavigation %}
                 <td class="centernavigationtablerow">
                     <table id="centernavigationtable">
                         <tr>
-                            <td class="leftnavlink {% block nav_editor %}{% endblock %}"><a href="{{ url_for('editor') }}">Editor</a></td>
-                            <td class="leftnavlink {% block nav_feed %}{% endblock %}"><a href="{{ url_for('feed') }}">Flöde</a></td>
-                            <td class="leftnavlink {% block nav_problemslist %}{% endblock %}"><a href="{{ url_for('problemslist') }}">Problem</a></td>
+                            <td class="leftnavlink {% block nav_problemslist %}{% endblock %}"><a href="{{ url_for('problemslist') }}">Uppgifter</a></td>
                             <td class="leftnavlink {% block nav_about %}{% endblock %}"><a href="{{ url_for('about') }}">Om oss</a></td>
                         </tr>
                     </table>
                 </td>
                 {% endblock %}
-                {% if logged_in %}
-                <td class="loginrow"><span id="loggedinmessage">{{ username }}</span><br> <a class="logoutlink"href="{{ url_for('logout', from=request.url, _external=True, _scheme='https') }}">Logga ut</a></td>
-                {% else %}
-                <td class="loginrow {% block nav_login %}{% endblock %}"><a class="loginlink" href="{% block loginlink %}{{ url_for('login', _external=True, _scheme='https', urlfrom=request.url) }}{% endblock %}">Logga in</a></td>
-                {% endif %}
             </tr>
         </table>
                     <table id="mobilenavigationtable">
                         <tr>
-                            <td class="mobileleftnavlink mobileleftnavlinkleftest {% block mobile_nav_editor %}{% endblock %}"><a href="{{ url_for('editor') }}">Editor</a></td>
-                            <td class="mobileleftnavlink {% block mobile_nav_feed %}{% endblock %}"><a href="{{ url_for('feed') }}">Flöde</a></td>
-                            <td class="mobileleftnavlink {% block mobile_nav_problemslist %}{% endblock %}"><a href="{{ url_for('problemslist') }}">Problem</a></td>
+                            <td class="mobileleftnavlink {% block mobile_nav_problemslist %}{% endblock %}"><a href="{{ url_for('problemslist') }}">Uppgifter</a></td>
                             <td class="mobileleftnavlink mobileleftnavlinkrightest {% block mobile_nav_about %}{% endblock %}"><a href="{{ url_for('about') }}">Om oss</a></td>
                         </tr>
                     </table>
