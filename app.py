@@ -22,15 +22,10 @@ app.config["PREFERRED_URL_SCHEME"] = "https"
 def rlpt(pt):
     return os.path.join(app.root_path, pt)
 
-"""
-@app.route("/loaderio-74214b0f5a6a4416bafb4a09fa7769b5.txt")
-def authenticate_for_loaderio():
-    return "loaderio-74214b0f5a6a4416bafb4a09fa7769b5"
-
 @app.route("/googled4987f8a6a3dfeee.html")
 def authenticate_for_google():
     return "google-site-verification: googled4987f8a6a3dfeee.html"
-"""
+
 
 
 
@@ -48,33 +43,30 @@ def home():
     return render_template("home.html")
 
 
-@app.route("/problems")
+@app.route("/problem")
 def problemslist():
     # list all problems
-    problemids = os.listdir(rlpt("problems"))
+    problemids = reversed(sorted(os.listdir(rlpt("static/problems"))))
     problems = []
     for problemid in problemids:
         if problemid.startswith("%"):
             continue
+        if problemid.endswith("pdf"):
+            continue
+        if not problemid.endswith(".txt"):
+            continue
+        problemtitle = "Något gick väldigt snett här."
+        with open(rlpt("static/problems/" + problemid), "r") as tf:
+                problemtitle = tf.read()
         problem = {}
-        problem["problemid"] = problemid
-        problem["problemtitle"] = getproblemtitle(problemid)
-        problem["status"] = "Not Attempted"
+        problem["filename"] = "problems/" + problemid[:-4] + ".pdf"
+        problem["filetitle"] = problemtitle
         problems.append(problem)
+
 
     return render_template("problemslist.html", problems = problems)
 
 
-
-import html
-
-
-def getproblemtitle(problemid):
-    problemtitlepath = rlpt("problems/" + problemid + "/title.txt")
-    problemtitle = problemid
-    with open(problemtitlepath) as problemtitlefile:
-        problemtitle = problemtitlefile.read()
-    return problemtitle
 
 # ABOUT
 

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Alla problem - Turings gäng{% endblock %}
+{% block title %}Problem - Matteklubben Fibonacci{% endblock %}
 {% block nav_problemslist %}navbaractive{% endblock %}
 {% block mobile_nav_problemslist %}navbaractive{% endblock %}
 
@@ -7,15 +7,13 @@
 
     <div id="problembody">
 
-        <h1>Alla problem</h1>
+        <h1>Problem</h1>
 
+        <p>Här hittar du alla problem som vi har delat ut under lektionerna.</p>
         <table class="realtable problemtable">
-            <tr class="tableheader">
-                <td>Namn</td>
-            </tr>
             {% for problem in problems %}
             <tr>
-                <td class="{{ problem['status'] }}"><a href="{{ url_for('problem', problemid=problem['problemid'], _external=True, _scheme='https') }}">{{ problem['problemtitle'] }}</a></td>
+                <td><a target="_blank" href="{{ url_for('static', filename=problem["filename"], _external=True, _scheme='https') }}">{{ problem['filetitle'] }}</a></td>
             </tr>
             {% endfor %}
         </table>

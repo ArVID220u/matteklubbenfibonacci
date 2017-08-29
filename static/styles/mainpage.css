@@ -26,10 +26,10 @@ button {
 
 a {
     text-decoration: none;
-    color: rgba(59,99,187,1.0);
+    color: /*rgba(59,99,187,1.0)*/ #00B2CA;
 }
 a:visited {
-    color: rgba(59,99,187,1.0);
+    color: /*rgba(59,99,187,1.0)*/ #00B2CA;
 }
 .myfilesblankpage p {
     font-size: 0.9em;
@@ -100,14 +100,14 @@ nav {
 }
 #navigationtable {
     width: 100%;
-    table-layout: fixed;
     height: 3.3em;
 }
-.centernavigationtablerow {
-    text-align: center;
+.rightnavigationtablerow {
+    text-align: right;
     max-width: 99%;
     margin: 0;
     padding: 0;
+    padding-right: 2em;
     height: auto;
 }
 #mobilenavigationrow {
@@ -117,37 +117,15 @@ nav {
     display: none;
 }
 
-.loginrow {
-    text-align: right;
-    width: 10em;
-    padding: 0.5em 0;
-    padding-right: 1.5em;
-    line-height: 100%;
-}
-.loginrow a.loginlink {
-    color: rgb(101,123,131);
-}
-.loginrow a.logoutlink {
-    color: rgb(220,50,47);
-    font-size: 0.8em;
-    margin-top: 0em;
-    padding-top: 0;
-}
-#loggedinmessage {
-    color: rgb(181,137,0);
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-#loginbr {
-    display: block;
-    font-size: 0.3em;
-}
 .brandrow {
     text-align: left;
-    width: 10em;
     padding: 0.5em 0;
     padding-left: 1.5em;
     font-weight: 700;
+    font-size: 1.1em;
+}
+.brandrow a {
+    color: /*rgb(0,105,64) borgargront*/#D33682;
 }
 .brandrow .turing {
     color: rgb(224, 83, 24);
@@ -159,20 +137,21 @@ nav {
     color: rgb(70, 87, 92);
 }
 #centernavigationtable {
-    table-layout: fixed;
-    margin: 0 auto;
+    margin: 0;
+    margin-left: auto;
 }
 .leftnavlink {
-    width: 10em;
+    padding-left: 3em;
+    font-size: 0.9em;
 }
 .leftnavlink a {
-    color: rgb(101,123,131);
+    color: /*rgb(101,123,131)*/ #5B5553;
 }
 .mobileleftnavlink a {
-    color: rgb(101,123,131);
+    color: /*rgb(101,123,131)*/ #5B5553;
 }
 .navbaractive a {
-    color: rgb(181, 137, 0);
+    color: /*rgb(181, 137, 0)*/ #44AF69;
 }
 
 
@@ -384,6 +363,9 @@ table.samples td {
 h1, h2, h3, h4, h5, h6 {
     font-family: "Open Sans", sans-serif;
 }
+h1, h2, h3 {
+    font-weight: 600;
+}
 
 h1 {
     text-align: center;
@@ -502,6 +484,11 @@ h1 {
 .problemtable {
     width: 100%;
     font-family: "Open Sans", sans-serif;
+    font-weight: 600;
+}
+.problemtable td {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
 }
 .myfilestable {
     width: 100%;
@@ -756,6 +743,9 @@ input:focus {
 #aboutbody p {
     font-size: 0.9em;
 }
+#problembody p {
+    font-size: 0.9em;
+}
 
 
 .postbody {
@@ -784,7 +774,9 @@ input:focus {
 
 
 
-
+#homemaindiv h1 {
+    font-weight: 700;
+}
 #homemaindiv {
     font-family: "Open Sans";
     padding: 1em 2em;
@@ -796,17 +788,29 @@ input:focus {
     padding-bottom: 2em;
 }
 #homemaindiv h1 {
-    font-family: Inconsolata, mono-space;
-    font-size: 2.5em;
+    font-family: "Open Sans", sans-serif;
+    font-size: 2.1em;
 }
 #homemaindiv .question {
-    color: rgb(70,87,92);
+    color: /*rgb(70,87,92)*/#5B5553;
 }
 #homemaindiv .turkos {
-    color: rgb(7,158,163);
+    color: /*rgb(7,158,163)*/#00B2CA;
+}
+#homemaindiv .problemsolving {
+    color: #44AF69;
+}
+#homemaindiv .exclammark {
+    color: #D33682;
+}
+#homemaindiv .questionmark {
+    color: #5B5553;
+}
+#homemaindiv .brandfib {
+    color: #D33682;
 }
 #homemaindiv .answer {
-    color: rgb(224,83,24);
+    color: /*rgb(224,83,24)*/#E88A20;
 }
 #homemaindiv #introinfo {
     margin-top: 2em;
@@ -821,25 +825,27 @@ input:focus {
 }
 #homemaindiv #signupturingsgang {
     text-align: center;
-    font-weight: bold;
+    font-weight: 600;
     font-size: 1.2em;
 }
 #homemaindiv #signupturingsgang a {
-    color: rgb(211,54,130);
+    color: /*rgb(211,54,130)*/ #D33682;
 }
 
 
 
 
-@media (max-width: 780px) {
+@media (max-width: 600px) {
     #homemaindiv h1 {
-        font-size: 2em;
+        font-size: 1.8em;
     }
-    .centernavigationtablerow {
+    .rightnavigationtablerow {
         display: none;
     }
     .brandrow {
         width: 50%;
+        text-align: center;
+        padding-left: 0;
     }
     .loginrow {
         width: 50%;
@@ -867,6 +873,7 @@ input:focus {
     }
     .mobileleftnavlink {
         text-align: center;
+        font-size: 0.9em;
     }
 
 }
