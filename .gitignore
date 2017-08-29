@@ -4,6 +4,6 @@ __pycache__/*
 app.db
 app.db.bak
 grading/*
-judgevenv/*
+mattevenv/*
 logs/*
 config.py
