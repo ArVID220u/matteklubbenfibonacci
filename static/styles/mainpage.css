@@ -835,7 +835,7 @@ input:focus {
 
 
 
-@media (max-width: 600px) {
+@media (max-width: 750px) {
     #homemaindiv h1 {
         font-size: 1.8em;
     }

@@ -24,6 +24,7 @@
                 <td class="rightnavigationtablerow">
                     <table id="centernavigationtable">
                         <tr>
+                            <td class="leftnavlink {% block nav_info %}{% endblock %}"><a href="{{ url_for('info') }}">Information</a></td>
                             <td class="leftnavlink {% block nav_problemslist %}{% endblock %}"><a href="{{ url_for('problemslist') }}">Problem</a></td>
                             <td class="leftnavlink {% block nav_about %}{% endblock %}"><a href="{{ url_for('about') }}">Om oss</a></td>
                         </tr>
@@ -34,6 +35,7 @@
         </table>
                     <table id="mobilenavigationtable">
                         <tr>
+                            <td class="mobileleftnavlink {% block mobile_nav_info %}{% endblock %}"><a href="{{ url_for('info') }}">Information</a></td>
                             <td class="mobileleftnavlink {% block mobile_nav_problemslist %}{% endblock %}"><a href="{{ url_for('problemslist') }}">Problem</a></td>
                             <td class="mobileleftnavlink mobileleftnavlinkrightest {% block mobile_nav_about %}{% endblock %}"><a href="{{ url_for('about') }}">Om oss</a></td>
                         </tr>
