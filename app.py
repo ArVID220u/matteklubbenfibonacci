@@ -40,7 +40,13 @@ def httpsify(url):
 @app.route("/")
 def home():
 
-    return render_template("home.html")
+
+    #return render_template("home.html")
+    return feed()
+
+@app.route("/hmt")
+def hmt():
+    return redirect("https://goo.gl/forms/evYAz2VM5jaHnWlQ2")
 
 
 @app.route("/problem")
@@ -66,6 +72,13 @@ def problemslist():
 
     return render_template("problemslist.html", problems = problems)
 
+def getproblemtitle(problemid):
+    blogtitlepath = rlpt("static/problems/" + problemid + ".txt")
+    problemtitle = problemid
+    with open(blogtitlepath) as blogtitlefile:
+        problemtitle = blogtitlefile.read()
+    return problemtitle
+
 
 
 # ABOUT
@@ -78,6 +91,118 @@ def about():
 @app.route("/information")
 def info():
     return render_template("info.html")
+
+
+
+
+
+def getblogposttitle(blogid):
+    blogtitlepath = rlpt("blog/" + blogid + "/title.txt")
+    problemtitle = blogid
+    with open(blogtitlepath) as blogtitlefile:
+        problemtitle = blogtitlefile.read()
+    return problemtitle
+
+
+
+def addextradatatoblogpost(problemstatement, problemid):
+    # all extra data is identified by being enclosed in %al% tags
+    # thus, all elements on even indices are raw html code,
+    # while all odd elements constitute some type of extra data
+    problemstatementsplit = problemstatement.split("%al%")
+
+    realproblemstatement = ""
+
+    for index, data in enumerate(problemstatementsplit):
+        # if index is even, just continue
+        if index % 2 == 0:
+            realproblemstatement += data
+            continue
+
+        # strip for whitespace in identifier part
+        data = data.lstrip()
+
+
+        if data.startswith("image"):
+            # images are identified by %al%image:filename.png%al%
+            filenamestring = data.split(":")[1].strip()
+            # add an img tag. add an extra class that is this problems id concatenated with the filename (without extension), for custom styling
+            realproblemstatement += "<img class='blogpostimage " + blogid + filenamestring.split('.')[0].split(' ')[0] + "' src='" + url_for('static', filename='blog/' + blogid + "/" + filenamestring) + "'>"
+
+        elif data.startswith("problemlink"):
+            # problemlink has format problemlink:problemid
+            problemidstring = data.split(":")[1].strip()
+            realproblemstatement += url_for("problem", problemid=problemidstring)
+
+        elif data.startswith("problemtitle"):
+            # formt problemlink:problemtitle
+            problemidstring = data.split(":")[1].strip()
+            realproblemstatement += getproblemtitle(problemidstring)
+
+        elif data.startswith("link"):
+            # format link:selector
+            selectorstring = data.split(":")[1].strip()
+            realproblemstatement += url_for(selectorstring, _external=True, _scheme="https")
+
+        elif data.startswith("staticlink"):
+            # format link:path
+            selectorstring = data.split(":")[1].strip()
+            realproblemstatement += url_for("static", filename=selectorstring, _external=True, _scheme="https")
+
+
+
+    return realproblemstatement
+
+
+
+
+@app.route("/flode")
+def feed():
+    blogids = os.listdir(rlpt("blog"))
+    blogposts = []
+    for blogid in blogids:
+        if blogid.startswith("%"):
+            continue
+        post = {}
+        post["blogid"] = blogid
+        post["title"] = getblogposttitle(blogid)
+
+        statementspath = rlpt("blog/" + blogid + "/content.html")
+        blogstatement = "Tomt inlägg."
+        if os.path.exists(statementspath):
+            # load blog statement
+            with open(statementspath) as statementfile:
+                blogstatement = statementfile.read()
+
+
+        datepath = rlpt("blog/" + blogid + "/date.txt")
+        dat = datetime.now()
+        # load date 
+        with open(datepath) as datefile:
+            datsr = datefile.read().strip()
+            dat = datetime.strptime(datsr, "%Y-%m-%d %H:%M:%S.%f")
+            post["realdate"] = dat
+
+        # convert dat to the right format
+        months = ["coolt", "januari", "februari", "mars", "april", "maj", "juni", "juli", "augusti", "september", "oktober", "november", "december"]
+        post["date"] = str(dat.day) + " " + months[dat.month] + " " + str(dat.year)
+
+
+
+
+        # maybe add images to the problem statement
+        blogstatement = addextradatatoblogpost(blogstatement, blogid)
+
+        post["content"] = blogstatement
+
+        blogposts.append(post)
+
+    # sort by date
+    blogposts = sorted(blogposts, key=lambda k: k["realdate"], reverse=True)
+    for b in blogposts:
+        b.pop("realdate", None)
+
+    return render_template("feed.html", blogposts=blogposts)
 
 
 

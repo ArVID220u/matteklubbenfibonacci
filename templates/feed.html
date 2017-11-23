@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Matteklubben Fibonacci{% endblock %}
+
+{% block body %}
+
+    <div id="feedbody">
+
+        {% for post in blogposts %}
+
+        <div class="postbody">
+            <h1>{{ post['title'] }}</h1>
+            <div class="postdate">{{ post['date'] }}</div>
+            <div class="postcontent">
+
+                {{ post['content'] | safe }}
+
+            </div>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+
+
+
+{% endblock %} 
